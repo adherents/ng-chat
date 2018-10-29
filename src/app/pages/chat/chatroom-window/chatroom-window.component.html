@@ -1,0 +1,9 @@
+<div class="h-100 d-flex flex-column chat-window">
+  <rtc-chatroom-title-bar [title]="'Robot Dreams'"></rtc-chatroom-title-bar>
+  <div class="message-wrapper h-100">
+    <ng-container *ngFor="let message of dummyData">
+      <rtc-chat-message [message]="message"></rtc-chat-message>
+    </ng-container>
+  </div>
+  <rtc-chat-input></rtc-chat-input>
+</div>
