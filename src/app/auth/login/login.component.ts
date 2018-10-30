@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Alert } from 'src/app/shared/models/alert.model';
 import { AlertType } from 'src/app/shared/enums/alert-type.enum';
 import { AlertService } from 'src/app/shared/services/alert.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'rtc-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadingService: LoadingService
   ) {
     this.createForm();
   }
@@ -31,12 +33,17 @@ export class LoginComponent implements OnInit {
   }
 
   public submit() {
+    this.loadingService.isLoading.next(true);
     if (this.loginForm.valid) {
       const {email, password} = this.loginForm.value;
       console.log(`Email: ${email}, Password: ${password}`);
+      this.loadingService.isLoading.next(false);
     } else {
       const failedLoginAlert = new Alert('Please enter correct credentials.', AlertType.Danger);
-      this.alertService.alert.next(failedLoginAlert);
+      setTimeout(() => {
+        this.loadingService.isLoading.next(false);
+        this.alertService.alert.next(failedLoginAlert);
+      }, 2000);
     }
   }
 

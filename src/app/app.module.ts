@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { NgxLoadingModule } from 'ngx-loading';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,7 +34,8 @@ import { ChatroomWindowComponent } from './pages/chat/chatroom-window/chatroom-w
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    NgxLoadingModule.forRoot({})
   ],
   providers: [],
   bootstrap: [AppComponent]
