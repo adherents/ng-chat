@@ -10,14 +10,17 @@ import { User } from '../models/user.model';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  currentUser: Observable<User>;
+  currentUser: any = null;
 
   constructor(
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.currentUser = this.authService.currentUser;
+    // this.currentUser = this.authService.currentUser;
+    this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
   }
 
   logout() {
