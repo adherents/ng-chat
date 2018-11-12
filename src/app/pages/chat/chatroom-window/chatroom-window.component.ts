@@ -1,44 +1,63 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+
+import { ChatroomService } from 'src/app/shared/services/chatroom.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'rtc-chatroom-window',
   templateUrl: './chatroom-window.component.html',
   styleUrls: ['./chatroom-window.component.scss']
 })
-export class ChatroomWindowComponent implements OnInit {
-  dummyData = [
-    {
-      message: 'test0',
-      createdAt: new Date(),
-      sender: {
-        firstName: 'test0',
-        lastName: 'test0',
-        photoUrl: 'https://via.placeholder.com/50x50'
-      }
-    },
-    {
-      message: 'test1',
-      createdAt: new Date(),
-      sender: {
-        firstName: 'test1',
-        lastName: 'test1',
-        photoUrl: 'https://via.placeholder.com/50x50'
-      }
-    },
-    {
-      message: 'test2',
-      createdAt: new Date(),
-      sender: {
-        firstName: 'test2',
-        lastName: 'test2',
-        photoUrl: 'https://via.placeholder.com/50x50'
-      }
-    },
-  ];
+export class ChatroomWindowComponent implements OnInit, OnDestroy, AfterViewChecked {
+  @ViewChild('scrollContainer') private scrollContainer: ElementRef;
+  private subscriptions: Subscription[] = [];
+  chatroom: Observable<any>;
+  messages: Observable<any>;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private chatroomService: ChatroomService,
+    private loadingService: LoadingService
+  ) {
+    this.subscriptions.push(
+      this.chatroomService.selectedChatroom.subscribe(chatroom => {
+        this.chatroom = chatroom;
+        // this.loadingService.isLoading.next(false);
+      })
+    );
+
+    this.subscriptions.push(
+      this.chatroomService.selectedChatroomMessages.subscribe(messages => {
+        this.messages = messages;
+        // this.loadingService.isLoading.next(false);
+      })
+    );
+  }
 
   ngOnInit() {
+    this.scrollToBottom();
+    this.subscriptions.push(
+      this.route.paramMap.subscribe(params => {
+        const chatroomId = params.get('chatroomId');
+        this.chatroomService.changeChatroom.next(chatroomId);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom() {
+    try {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
 }

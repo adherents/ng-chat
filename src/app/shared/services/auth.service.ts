@@ -14,6 +14,7 @@ import { Alert } from '../models/alert.model';
 })
 export class AuthService {
   currentUser: Observable<User | null>;
+  currentUserSnapshot: User | null;
 
   constructor(
     private router: Router,
@@ -29,6 +30,7 @@ export class AuthService {
           return of(null);
         }
       }));
+    this.setCurrentUserSnapshot();
   }
 
   signup(firstName: string, lastName: string, email: string, password: string): Observable<boolean> {
@@ -64,5 +66,9 @@ export class AuthService {
       this.router.navigate(['/login']);
       this.alertService.alert.next(new Alert('You have been signed out.'));
     });
+  }
+
+  private setCurrentUserSnapshot() {
+    this.currentUser.subscribe(user => this.currentUserSnapshot = user);
   }
 }

@@ -1,9 +1,19 @@
 <div class="h-100 d-flex flex-column chat-window">
-  <rtc-chatroom-title-bar [title]="'Robot Dreams'"></rtc-chatroom-title-bar>
-  <div class="message-wrapper h-100">
-    <ng-container *ngFor="let message of dummyData">
+  <ng-container *ngIf="!chatroom else chatMessages">
+    <div class="select-room h-100 w-100 d-flex justify-content-center align-items-center">
+      <div class="select-room-message">
+        Select a Room
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #chatMessages>
+  <rtc-chatroom-title-bar [title]="chatroom.name"></rtc-chatroom-title-bar>
+  <div class="message-wrapper h-100" #scrollContainer>
+    <ng-container *ngFor="let message of messages">
       <rtc-chat-message [message]="message"></rtc-chat-message>
     </ng-container>
   </div>
   <rtc-chat-input></rtc-chat-input>
-</div>
+</ng-template>
