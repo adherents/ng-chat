@@ -44,6 +44,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subsciptions.forEach(sub => sub.unsubscribe);
+    this.subsciptions.forEach(sub => sub.unsubscribe());
   }
 }

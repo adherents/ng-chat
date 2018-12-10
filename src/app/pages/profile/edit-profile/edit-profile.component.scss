@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@import '../../../../styles/variables.scss';
 
 .no-photo {
   height: 150px;
@@ -15,16 +15,11 @@
   margin: 1em 0;
 }
 
-.name {
-  font-size: 1.4em;
-  font-weight: 200;
-}
-
-.quote {
-  margin-bottom: 2em;
-}
-
-.bio {
-  margin-bottom: 2em;
+input, textarea {
+  border: 2px solid $light-grey;
+  border-radius: 5px;
+  padding: .25em .5em;
+  margin-bottom: 1em;
+  width: 100%;
   font-weight: 200;
 }
