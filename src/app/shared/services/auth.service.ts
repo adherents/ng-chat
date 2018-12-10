@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Observable, of, from} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { User } from '../models/user.model';
+import { User } from '../models/user.interface';
 import { AlertService } from './alert.service';
 import { Alert } from '../models/alert.model';
 
@@ -44,7 +44,9 @@ export class AuthService {
             firstName,
             lastName,
             // tslint:disable-next-line:max-line-length
-            photoUrl: 'https://firebasestorage.googleapis.com/v0/b/ng7-chat.appspot.com/o/default_profile_pic.jpg?alt=media&token=9bb6afcb-b593-4aa0-9733-53e8062fc8c5'
+            photoUrl: 'https://firebasestorage.googleapis.com/v0/b/ng7-chat.appspot.com/o/default_profile_pic.jpg?alt=media&token=9bb6afcb-b593-4aa0-9733-53e8062fc8c5',
+            quote: 'Past here your quote.',
+            bio: 'Bio is under construction...'
           };
           userRef.set(updatedUser);
           return true;

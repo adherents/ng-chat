@@ -21,6 +21,7 @@ import { ChatroomTitleBarComponent } from './pages/chat/chatroom-title-bar/chatr
 import { ChatMessageComponent } from './pages/chat/chat-message/chat-message.component';
 import { ChatroomWindowComponent } from './pages/chat/chatroom-window/chatroom-window.component';
 import { environment } from '../environments/environment';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { environment } from '../environments/environment';
     ChatroomListComponent,
     ChatroomTitleBarComponent,
     ChatMessageComponent,
-    ChatroomWindowComponent
+    ChatroomWindowComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
